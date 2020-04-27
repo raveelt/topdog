@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="636facf5-efe5-46cb-b021-b116ba2404d4" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ZmFRyoYqvHGBOegNYbNx2qRWxS" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager">
+    <configuration name="topdog" type="PythonConfigurationType" factoryName="Python">
+      <module name="topdog" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Raveel\.conda\envs\gamesh\pythonw.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/topdog.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="636facf5-efe5-46cb-b021-b116ba2404d4" name="Default Changelist" comment="" />
+      <created>1585436357948</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585436357948</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="353" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588011102770">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="207" y="135" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1500.960@0.0.1500.960" timestamp="1587347031106" />
+    <state x="654" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400/2560.0.1050.1640/-1920.0.1920.1040@0.0.2560.1400" timestamp="1586662684031" />
+    <state x="353" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400/2560.0.1050.1640@0.0.2560.1400" timestamp="1588011102770" />
+    <state x="908" y="343" key="FileChooserDialogImpl" timestamp="1587325878029">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="532" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1587132599281" />
+    <state x="908" y="343" key="FileChooserDialogImpl/0.0.2560.1400/2560.0.1050.1640@0.0.2560.1400" timestamp="1587325878029" />
+    <state width="1256" height="398" key="GridCell.Tab.0.bottom" timestamp="1588021664315">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="729" height="241" key="GridCell.Tab.0.bottom/0.0.1500.960@0.0.1500.960" timestamp="1587998031271" />
+    <state width="2539" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1050.1640/-1920.0.1920.1040@0.0.2560.1400" timestamp="1586708276679" />
+    <state width="1256" height="398" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1050.1640@0.0.2560.1400" timestamp="1588021664315" />
+    <state width="1256" height="398" key="GridCell.Tab.0.center" timestamp="1588021664315">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="729" height="241" key="GridCell.Tab.0.center/0.0.1500.960@0.0.1500.960" timestamp="1587998031271" />
+    <state width="2539" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1050.1640/-1920.0.1920.1040@0.0.2560.1400" timestamp="1586708276679" />
+    <state width="1256" height="398" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1050.1640@0.0.2560.1400" timestamp="1588021664315" />
+    <state width="1256" height="398" key="GridCell.Tab.0.left" timestamp="1588021664315">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="729" height="241" key="GridCell.Tab.0.left/0.0.1500.960@0.0.1500.960" timestamp="1587998031271" />
+    <state width="2539" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1050.1640/-1920.0.1920.1040@0.0.2560.1400" timestamp="1586708276679" />
+    <state width="1256" height="398" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1050.1640@0.0.2560.1400" timestamp="1588021664315" />
+    <state width="1256" height="398" key="GridCell.Tab.0.right" timestamp="1588021664315">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="729" height="241" key="GridCell.Tab.0.right/0.0.1500.960@0.0.1500.960" timestamp="1587998031271" />
+    <state width="2539" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1050.1640/-1920.0.1920.1040@0.0.2560.1400" timestamp="1586708276679" />
+    <state width="1256" height="398" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1050.1640@0.0.2560.1400" timestamp="1588021664315" />
+    <state width="729" height="316" key="GridCell.Tab.1.bottom" timestamp="1587356469488">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state width="729" height="316" key="GridCell.Tab.1.bottom/0.0.1500.960@0.0.1500.960" timestamp="1587356469488" />
+    <state width="729" height="316" key="GridCell.Tab.1.center" timestamp="1587356469488">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state width="729" height="316" key="GridCell.Tab.1.center/0.0.1500.960@0.0.1500.960" timestamp="1587356469488" />
+    <state width="729" height="316" key="GridCell.Tab.1.left" timestamp="1587356469488">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state width="729" height="316" key="GridCell.Tab.1.left/0.0.1500.960@0.0.1500.960" timestamp="1587356469488" />
+    <state width="729" height="316" key="GridCell.Tab.1.right" timestamp="1587356469488">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state width="729" height="316" key="GridCell.Tab.1.right/0.0.1500.960@0.0.1500.960" timestamp="1587356469488" />
+    <state x="458" y="234" key="SettingsEditor" timestamp="1587874788533">
+      <screen x="0" y="0" width="1500" height="960" />
+    </state>
+    <state x="458" y="234" key="SettingsEditor/0.0.1500.960@0.0.1500.960" timestamp="1587874788533" />
+    <state x="781" y="341" key="SettingsEditor/0.0.2560.1400/2560.0.1050.1640/-1920.0.1920.1040@0.0.2560.1400" timestamp="1586662695559" />
+    <state x="761" y="443" key="com.intellij.ide.util.TipDialog" timestamp="1587325823318">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="446" y="304" key="com.intellij.ide.util.TipDialog/0.0.1500.960@0.0.1500.960" timestamp="1586787631299" />
+    <state x="761" y="443" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/2560.0.1050.1640/-1920.0.1920.1040@0.0.2560.1400" timestamp="1586715439477" />
+    <state x="761" y="443" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/2560.0.1050.1640@0.0.2560.1400" timestamp="1587325823318" />
+  </component>
+</project>
