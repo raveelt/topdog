@@ -39,7 +39,20 @@ planesprites = [pygame.image.load('png/plane/Fly 1-00.png'), pygame.image.load('
                 pygame.image.load('png/plane/Fly 1-360.png')
                 ]
 
-
+plane2sprites = [pygame.image.load('png/plane2/Fly 1-00.png'), pygame.image.load('png/plane2/Fly 1-10.png'), pygame.image.load('png/plane2/Fly 1-20.png'),
+                pygame.image.load('png/plane2/Fly 1-30.png'),pygame.image.load('png/plane2/Fly 1-40.png'),pygame.image.load('png/plane2/Fly 1-50.png'),
+                pygame.image.load('png/plane2/Fly 1-60.png'),pygame.image.load('png/plane2/Fly 1-70.png'),pygame.image.load('png/plane2/Fly 1-80.png'),
+                pygame.image.load('png/plane2/Fly 1-90.png'),pygame.image.load('png/plane2/Fly 1-100.png'),pygame.image.load('png/plane2/Fly 1-110.png'),
+                pygame.image.load('png/plane2/Fly 1-120.png'),pygame.image.load('png/plane2/Fly 1-130.png'),pygame.image.load('png/plane2/Fly 1-140.png'),
+                pygame.image.load('png/plane2/Fly 1-150.png'),pygame.image.load('png/plane2/Fly 1-160.png'),pygame.image.load('png/plane2/Fly 1-170.png'),
+                pygame.image.load('png/plane2/Fly 1-180.png'),pygame.image.load('png/plane2/Fly 1-190.png'),pygame.image.load('png/plane2/Fly 1-200.png'),
+                pygame.image.load('png/plane2/Fly 1-210.png'),pygame.image.load('png/plane2/Fly 1-220.png'),pygame.image.load('png/plane2/Fly 1-230.png'),
+                pygame.image.load('png/plane2/Fly 1-240.png'),pygame.image.load('png/plane2/Fly 1-250.png'),pygame.image.load('png/plane2/Fly 1-260.png'),
+                pygame.image.load('png/plane2/Fly 1-270.png'),pygame.image.load('png/plane2/Fly 1-280.png'),pygame.image.load('png/plane2/Fly 1-290.png'),
+                pygame.image.load('png/plane2/Fly 1-300.png'),pygame.image.load('png/plane2/Fly 1-310.png'),pygame.image.load('png/plane2/Fly 1-320.png'),
+                pygame.image.load('png/plane2/Fly 1-330.png'),pygame.image.load('png/plane2/Fly 1-340.png'),pygame.image.load('png/plane2/Fly 1-350.png'),
+                pygame.image.load('png/plane2/Fly 1-360.png')
+                ]
 black = (  0,   0,   0)
 white = (255, 255, 255)
 red = (255,   0,   0)
@@ -88,8 +101,37 @@ class projectile(object):
         pygame.draw.circle(win, self.color, (int(self.x), int(self.y)), self.radius)
 
 
+class enemyplane(object):
+    def __init__(self, x, y, width, height, angle, thrust, color):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.angle = angle
+        self.thrust = thrust
+        self.color = color
+        self.weight = 2
 
-planeOne = plane(1,650,100,100,0,12, white)
+
+    def draw(self, win):
+        #pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))
+
+        win.blit(plane2sprites[self.angle//10], (self.x, self.y))
+
+
+class projectile(object):
+    def __init__(self, x, y, radius, color):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self. color = color
+
+    def draw(self, win):
+        pygame.draw.circle(win, self.color, (int(self.x), int(self.y)), self.radius)
+
+
+planeOne = plane(1,650,100,100,0,12,white)
+planeTwo = enemyplane(1180,650,100,100,0,12,white)
 
 bombs=[]
 
@@ -102,6 +144,7 @@ def redrawGameWindow():
     #win.fill(black)
 
     planeOne.draw(win)
+    planeTwo.draw(win)
 
     for bomb in bombs:
         bomb.draw(win)
@@ -172,10 +215,10 @@ while run:
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_a]:
         planeOne.angle += 5
 
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_d]:
         planeOne.angle -= 5
 
     if planeOne.angle == 360:
@@ -217,13 +260,11 @@ while run:
 
 
 
+    bulletY = planeOne.y + 25
+    bulletX = planeOne.x + 50
 
 
-    bulletY = planeY + 25
-    bulletX = planeX + 50
-
-
-    if keys[pygame.K_SPACE]:
+    if keys[pygame.K_LSHIFT]:
         if len(bombs) < 3 :
             bombs.append(projectile(planeOne.x + 50, planeOne.y + 25, 10, black))
 
@@ -240,10 +281,73 @@ while run:
             bombs.pop(bombs.index(bomb))
 
 
+# copy over plane one details for enemy plane
+
+    if keys[pygame.K_RIGHT]:
+        planeTwo.angle += 5
+
+    if keys[pygame.K_LEFT]:
+        planeTwo.angle -= 5
+
+    if planeTwo.angle == 360:
+        planeTwo.angle = 0
+
+    if planeTwo.angle == -5:
+        planeTwo.angle = 355
+
+    if 0 <= planeTwo.angle <= 25 or 155<= planeTwo.angle <= 185 or planeTwo.angle == 355:
+        L = 2 #liftcoefficient[planeTwo.angle]
+    else:
+        L = 2 #0
+
+
+
+    horizontalFtwo = (planeTwo.thrust * math.cos(math.radians(planeTwo.angle))) + (L * math.sin(math.radians(planeTwo.angle)))
+
+    verticalFtwo = (planeTwo.thrust * math.sin(math.radians(planeTwo.angle))) + (L * math.cos(math.radians(planeTwo.angle))) - planeTwo.weight
+
+
+
+    planeTwo.x -= horizontalFtwo
+
+    if planeTwo.x > width:
+        planeTwo.x = 1
+
+    if planeTwo.x < 1:
+        planeTwo.x = width
+
+
+
+    planeTwo.y-=verticalFtwo
+
+    if planeTwo.y > height:
+        planeTwo.y = 1
+
+    if planeTwo.y < 1:
+        planeTwo.y = height
+
+
+
+
 
 
     redrawGameWindow()
     clock.tick(60)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #angle of attack == c
