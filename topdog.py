@@ -82,13 +82,14 @@ class plane(object):
         self.thrust = thrust
         self.color = color
         self.weight = 2
-
+        self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
 
     def draw(self, win):
         #pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))
 
         win.blit(planesprites[self.angle//10], (self.x, self.y))
-
+        self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
+        pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
 
 class projectile(object):
     def __init__(self, x, y, radius, color):
@@ -111,13 +112,18 @@ class enemyplane(object):
         self.thrust = thrust
         self.color = color
         self.weight = 2
+        self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
 
+    def hit(self):
+        print('Hit')
+        pass
 
     def draw(self, win):
         #pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))
 
         win.blit(plane2sprites[self.angle//10], (self.x, self.y))
-
+        self.hitbox = (self.x, self.y + 20, self.width, self.height - 40 )
+        pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
 
 class projectile(object):
     def __init__(self, x, y, radius, color):
@@ -132,7 +138,7 @@ class projectile(object):
 
 planeOne = plane(1,650,100,100,0,12,white)
 planeTwo = enemyplane(1180,650,100,100,0,12,white)
-
+shootLoop = 0
 bombs=[]
 
 win.blit(bg, (0,0))
@@ -148,6 +154,8 @@ def redrawGameWindow():
 
     for bomb in bombs:
         bomb.draw(win)
+
+    
 
     pygame.display.update()
 
@@ -205,6 +213,12 @@ thrust acceleration =
 while run:
 
     # digits are in milliseconds
+
+    if shootLoop > 0:  
+        shootLoop += 1
+
+    if shootLoop > 10:
+        shootLoop = 0    
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -264,19 +278,25 @@ while run:
     bulletX = planeOne.x + 50
 
 
-    if keys[pygame.K_LSHIFT]:
+    if keys[pygame.K_LSHIFT] and shootLoop == 0:
         if len(bombs) < 3 :
             bombs.append(projectile(planeOne.x + 50, planeOne.y + 25, 10, black))
-
+        
+        shootLoop = 1
 
     for bomb in bombs:
+        if bomb.y - bomb.radius < planeTwo.hitbox[1] + planeTwo.hitbox[3] and bomb.y + bomb.radius > planeTwo.hitbox[1]:
+            if bomb.x + bomb.radius > planeTwo.hitbox[0] and bomb.x - bomb.radius < planeTwo.hitbox[0] + planeTwo.hitbox[2]:
+                planeTwo.hit() 
+                bombs.pop(bombs.index(bomb))
+
         if 0 < bomb.x < width:
-            bomb.x += (20 * math.cos(math.radians(planeOne.angle)))
+            bomb.x += (20 * math.cos(math.radians(planeOne.angle))) #after every redraw the angle of the plane might change, which inherently changes the position of the bullet
         else:
             bombs.pop(bombs.index(bomb))
 
         if 0 < bomb.y < height:
-            bomb.y -= (20 * math.sin(math.radians(planeOne.angle)))
+            bomb.y -= (20 * math.sin(math.radians(planeOne.angle))) #after every redraw the angle of the plane might change, which inherently changes the position of the bullet
         else:
             bombs.pop(bombs.index(bomb))
 
