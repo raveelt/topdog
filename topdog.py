@@ -83,6 +83,12 @@ class plane(object):
         self.color = color
         self.weight = 2
         self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
+        self.health = 250
+    
+    def hit(self):
+        print('Hit')
+        pass
+        self.health-=25
 
     def draw(self, win):
         #pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))
@@ -90,6 +96,19 @@ class plane(object):
         win.blit(planesprites[self.angle//10], (self.x, self.y))
         self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
         pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
+        
+        pygame.draw.rect(win, (200,255,200), (30, 10 , 250, 10),)
+
+        if self.health > 125:
+            pygame.draw.rect(win, (0,255,0), (30, 10 , self.health, 10))
+
+        elif 50 < self.health <=125:
+            pygame.draw.rect(win, (255,165,0), (30, 10 , self.health, 10))
+        
+        else:
+            pygame.draw.rect(win, (255,0,0), (30, 10 , self.health, 10))
+
+        pygame.draw.rect(win, (0,0,0), (30, 10 , 250, 10), 2)
 
 class projectile(object):
     def __init__(self, x, y, radius, color):
@@ -100,6 +119,7 @@ class projectile(object):
 
     def draw(self, win):
         pygame.draw.circle(win, self.color, (int(self.x), int(self.y)), self.radius)
+
 
 
 class enemyplane(object):
@@ -113,10 +133,13 @@ class enemyplane(object):
         self.color = color
         self.weight = 2
         self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
+        self.health = 250
 
     def hit(self):
         print('Hit')
         pass
+        self.health-=25
+        
 
     def draw(self, win):
         #pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))
@@ -124,6 +147,20 @@ class enemyplane(object):
         win.blit(plane2sprites[self.angle//10], (self.x, self.y))
         self.hitbox = (self.x, self.y + 20, self.width, self.height - 40 )
         pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
+        
+        pygame.draw.rect(win, (200,200,255), (1000, 10 , 250, 10),)
+
+        if self.health > 125:
+            pygame.draw.rect(win, (0,0,255), (1000, 10 , self.health, 10))
+
+        elif 50 < self.health <=125:
+            pygame.draw.rect(win, (255,165,0), (1000, 10 , self.health, 10))
+        
+        else:
+            pygame.draw.rect(win, (255,0,0), (1000, 10 , self.health, 10))
+        
+       
+        pygame.draw.rect(win, (0,0,0), (1000, 10 , 250, 10), 2)
 
 class projectile(object):
     def __init__(self, x, y, radius, color):
@@ -139,7 +176,9 @@ class projectile(object):
 planeOne = plane(1,650,100,100,0,12,white)
 planeTwo = enemyplane(1180,650,100,100,0,12,white)
 shootLoop = 0
+shootLoopEnemy = 0
 bombs=[]
+enemybombs=[]
 
 win.blit(bg, (0,0))
 
@@ -153,6 +192,9 @@ def redrawGameWindow():
     planeTwo.draw(win)
 
     for bomb in bombs:
+        bomb.draw(win)
+
+    for bomb in enemybombs:
         bomb.draw(win)
 
     
@@ -176,6 +218,7 @@ liftcoefficient = {
     180:2,
     185:0,
 }
+
 
 '''
 # L = liftCoefficient * velocity
@@ -209,6 +252,7 @@ drag acceleration
 thrust acceleration = 
 '''
 
+#consider acceleration 
 
 while run:
 
@@ -219,6 +263,12 @@ while run:
 
     if shootLoop > 10:
         shootLoop = 0    
+    
+    if shootLoopEnemy > 0:  
+        shootLoopEnemy += 1
+
+    if shootLoopEnemy > 10:
+        shootLoopEnemy = 0 
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -274,8 +324,8 @@ while run:
 
 
 
-    bulletY = planeOne.y + 25
-    bulletX = planeOne.x + 50
+    #bulletY = planeOne.y + 25
+    #bulletX = planeOne.x + 50
 
 
     if keys[pygame.K_LSHIFT] and shootLoop == 0:
@@ -347,7 +397,28 @@ while run:
         planeTwo.y = height
 
 
+    if keys[pygame.K_RSHIFT] and shootLoopEnemy == 0:
+        if len(enemybombs) < 3 :
+            enemybombs.append(projectile(planeTwo.x - 50, planeTwo.y + 25, 10, black))
+        
+        shootLoopEnemy = 1
+        
+    for bomb in enemybombs:
+        if bomb.y - bomb.radius < planeOne.hitbox[1] + planeOne.hitbox[3] and bomb.y + bomb.radius > planeOne.hitbox[1]:
+            if bomb.x + bomb.radius > planeOne.hitbox[0] and bomb.x - bomb.radius < planeOne.hitbox[0] + planeOne.hitbox[2]:
+                planeOne.hit() 
+                enemybombs.pop(enemybombs.index(bomb))
 
+        if 0 < bomb.x < width:
+            bomb.x -= (20 * math.cos(math.radians(planeTwo.angle))) #after every redraw the angle of the plane might change, which inherently changes the position of the bullet
+        else:
+            enemybombs.pop(enemybombs.index(bomb))
+
+        if 0 < bomb.y < height:
+            bomb.y -= (20 * math.sin(math.radians(planeTwo.angle))) #after every redraw the angle of the plane might change, which inherently changes the position of the bullet
+        else:
+            enemybombs.pop(enemybombs.index(bomb))
+        
 
 
 
@@ -357,24 +428,10 @@ while run:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #angle of attack == c
 #arbitrary lift coefficient as c increase, coefficient follows normal distribution , between 0 and 2
 
 #set up a dictionary?
-
 
 
 #Bumping
