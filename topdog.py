@@ -60,17 +60,19 @@ green = (  0, 255,   0)
 blue = (  0,   0, 255)
 
 
-pygame.display.set_caption("Top Diggity Dog")
+pygame.display.set_caption("Top Dog")
 
 clock = pygame.time.Clock() # where is the next method
 
-run = True
+run = False
 
 planeX = 1
 planeY = 650
 
 
-
+def text_objects(text, font):
+    textSurface = font.render(text, True, white)
+    return textSurface, textSurface.get_rect()
 
 class plane(object):
     def __init__(self, x, y, width, height, angle, thrust, color):
@@ -95,7 +97,7 @@ class plane(object):
 
         win.blit(planesprites[self.angle//10], (self.x, self.y))
         self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
-        pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
+        #pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
         
         pygame.draw.rect(win, (200,255,200), (30, 10 , 250, 10),)
 
@@ -146,7 +148,7 @@ class enemyplane(object):
 
         win.blit(plane2sprites[self.angle//10], (self.x, self.y))
         self.hitbox = (self.x, self.y + 20, self.width, self.height - 40 )
-        pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
+        #pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
         
         pygame.draw.rect(win, (200,200,255), (1000, 10 , 250, 10),)
 
@@ -254,6 +256,29 @@ thrust acceleration =
 
 #consider acceleration 
 
+
+intro = True
+
+while intro:
+
+    for event in pygame.event.get():
+        print(event)
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            intro = False
+            run = True
+
+    win.blit(bg, (0,0))
+    
+    largeText = pygame.font.Font('freesansbold.ttf',115)
+    TextSurf, TextRect = text_objects("Top Dog", largeText)
+    TextRect.center = ((width/2),(height/2))
+    win.blit(TextSurf, TextRect)
+    pygame.display.update()
+    clock.tick(15)
+
+
 while run:
 
     # digits are in milliseconds
@@ -294,7 +319,7 @@ while run:
     if 0 <= planeOne.angle <= 25 or 155<= planeOne.angle <= 185 or planeOne.angle == 355:
         L = 2 #liftcoefficient[planeOne.angle]
     else:
-        L = 2 #0
+        L = 2
 
 
 
@@ -399,7 +424,7 @@ while run:
 
     if keys[pygame.K_RSHIFT] and shootLoopEnemy == 0:
         if len(enemybombs) < 3 :
-            enemybombs.append(projectile(planeTwo.x - 50, planeTwo.y + 25, 10, black))
+            enemybombs.append(projectile(planeTwo.x + 50, planeTwo.y + 25, 10, black))
         
         shootLoopEnemy = 1
         
@@ -419,11 +444,33 @@ while run:
         else:
             enemybombs.pop(enemybombs.index(bomb))
         
+    if planeOne.health == 0:
+
+        largeText = pygame.font.Font('freesansbold.ttf',115)
+        TextSurf, TextRect = text_objects("Blue Won!", largeText)
+        TextRect.center = ((width/2),(height/2))
+        win.blit(TextSurf, TextRect)
+        pygame.display.update()
+        clock.tick(1)
+
+    if planeTwo.health == 0:
+
+        largeText = pygame.font.Font('freesansbold.ttf',115)
+        TextSurf, TextRect = text_objects("Green Won!", largeText)
+        TextRect.center = ((width/2),(height/2))
+        win.blit(TextSurf, TextRect)
+        pygame.display.update()
+        clock.tick(1)
+        run = False
 
 
 
     redrawGameWindow()
     clock.tick(60)
+
+
+
+
 
 
 
