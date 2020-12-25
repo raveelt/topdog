@@ -1,27 +1,12 @@
 import pygame
-
 import math
-'''
-from turtle import *
-color('red', 'yellow')
-begin_fill()
-while True:
-    forward(1)
-    left(1)
-    if abs(pos()) < 1:
-        break
-end_fill()
-done()
-'''
 
-pygame.init() #no idea what this does
+pygame.init()
 
 width = 1280
 height = 960
 
 win = pygame.display.set_mode((width, height))
-
-
 bg = pygame.image.load('png/BG scaled.png')
 
 planesprites = [pygame.image.load('png/plane/Fly 1-00.png'), pygame.image.load('png/plane/Fly 1-10.png'), pygame.image.load('png/plane/Fly 1-20.png'),
@@ -53,21 +38,23 @@ plane2sprites = [pygame.image.load('png/plane2/Fly 1-00.png'), pygame.image.load
                 pygame.image.load('png/plane2/Fly 1-330.png'),pygame.image.load('png/plane2/Fly 1-340.png'),pygame.image.load('png/plane2/Fly 1-350.png'),
                 pygame.image.load('png/plane2/Fly 1-360.png')
                 ]
+
+
 black = (  0,   0,   0)
 white = (255, 255, 255)
 red = (255,   0,   0)
 green = (  0, 255,   0)
 blue = (  0,   0, 255)
 
-
 pygame.display.set_caption("Top Dog")
 
-clock = pygame.time.Clock() # where is the next method
+clock = pygame.time.Clock()
 
 run = False
 
 planeX = 1
 planeY = 650
+L = 2 #lift speed
 
 
 def text_objects(text, font):
@@ -93,11 +80,9 @@ class plane(object):
         self.health-=25
 
     def draw(self, win):
-        #pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))
 
         win.blit(planesprites[self.angle//10], (self.x, self.y))
         self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
-        #pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
         
         pygame.draw.rect(win, (200,255,200), (30, 10 , 250, 10),)
 
@@ -144,11 +129,9 @@ class enemyplane(object):
         
 
     def draw(self, win):
-        #pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))
 
         win.blit(plane2sprites[self.angle//10], (self.x, self.y))
-        self.hitbox = (self.x, self.y + 20, self.width, self.height - 40 )
-        #pygame.draw.rect(win, (255,0,0), self.hitbox,2) #Hitboxes
+        self.hitbox = (self.x, self.y + 20, self.width, self.height - 40)
         
         pygame.draw.rect(win, (200,200,255), (1000, 10 , 250, 10),)
 
@@ -180,7 +163,6 @@ class projectile(object):
 def redrawGameWindow():
 
     win.blit(bg, (0,0))
-    #win.fill(black)
 
     planeOne.draw(win)
     planeTwo.draw(win)
@@ -191,62 +173,7 @@ def redrawGameWindow():
     for bomb in enemybombs:
         bomb.draw(win)
 
-    
-
     pygame.display.update()
-
-
-liftcoefficient = {
-    355:0,
-    0:2,
-    5:2.5,
-    10:2.75,
-    15:2.5,
-    20:2,
-    25:0,
-    155:0,
-    160:2,
-    165:2.5,
-    170:2.75,
-    175:2.5,
-    180:2,
-    185:0,
-}
-
-
-'''
-# L = liftCoefficient * velocity
-
-c = 0
-W = 6
-F = 12
-
-
-
-
-Newtonian Law
-
-F #thrust
-L #lift
-W #weight
-D #drag
-c=0 #angle of climb/attack
-
-W = planeWeight * gravity
-
-
-F * math.sin(c) - D * math.sin(c) + L* math.cos(c) - W = MAv #Vertical Force = negative planeY ? 
-
-F * math.cos(c) - D * math.cos(c) + L * math.sin(c) = MAh #horizontal Force = planeX ?
-
-
-gravity = 9.82
-lift acceleration = 15
-drag acceleration 
-thrust acceleration = 
-'''
-
-#consider acceleration 
 
 
 intro = True
@@ -269,22 +196,25 @@ while intro:
         print(event)
         if event.type == pygame.QUIT:
             pygame.quit()
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
             run = True
 
-    
     
     largeText = pygame.font.Font('freesansbold.ttf',115)
     TextSurf, TextRect = text_objects("Top Dog", largeText)
     TextRect.center = ((width/2),(height/2))
     win.blit(TextSurf, TextRect)
+
+    smallText = pygame.font.Font('freesansbold.ttf',30)
+    instructionSurf, instructionRect = text_objects("press any key to play", smallText)
+    instructionRect.center = ((width/2),(height*2/3))
+    win.blit(instructionSurf, instructionRect)
     pygame.display.update()
     clock.tick(15)
 
 
     while run:
 
-        # digits are in milliseconds
 
         if shootLoop > 0:  
             shootLoop += 1
@@ -303,11 +233,9 @@ while intro:
                 run = False
                 intro = False
 
-
-
-
         keys = pygame.key.get_pressed()
 
+#plane One
         if keys[pygame.K_a]:
             planeOne.angle += 5
 
@@ -319,12 +247,6 @@ while intro:
 
         if planeOne.angle == -5:
             planeOne.angle = 355
-
-        if 0 <= planeOne.angle <= 25 or 155<= planeOne.angle <= 185 or planeOne.angle == 355:
-            L = 2 #liftcoefficient[planeOne.angle]
-        else:
-            L = 2
-
 
 
         horizontalF = (planeOne.thrust * math.cos(math.radians(planeOne.angle))) + (L * math.sin(math.radians(planeOne.angle)))
@@ -352,11 +274,6 @@ while intro:
             planeOne.y = height
 
 
-
-        #bulletY = planeOne.y + 25
-        #bulletX = planeOne.x + 50
-
-
         if keys[pygame.K_LSHIFT] and shootLoop == 0:
             if len(bombs) < 3 :
                 bombs.append(projectile(planeOne.x + 50, planeOne.y + 25, 10, black))
@@ -370,17 +287,17 @@ while intro:
                     bombs.pop(bombs.index(bomb))
 
             if 0 < bomb.x < width:
-                bomb.x += (20 * math.cos(math.radians(planeOne.angle))) #after every redraw the angle of the plane might change, which inherently changes the position of the bullet
+                bomb.x += (20 * math.cos(math.radians(planeOne.angle)))
             else:
                 bombs.pop(bombs.index(bomb))
 
             if 0 < bomb.y < height:
-                bomb.y -= (20 * math.sin(math.radians(planeOne.angle))) #after every redraw the angle of the plane might change, which inherently changes the position of the bullet
+                bomb.y -= (20 * math.sin(math.radians(planeOne.angle))) 
             else:
                 bombs.pop(bombs.index(bomb))
 
 
-    # copy over plane one details for enemy plane
+#planeTwo
 
         if keys[pygame.K_RIGHT]:
             planeTwo.angle += 5
@@ -393,12 +310,6 @@ while intro:
 
         if planeTwo.angle == -5:
             planeTwo.angle = 355
-
-        if 0 <= planeTwo.angle <= 25 or 155<= planeTwo.angle <= 185 or planeTwo.angle == 355:
-            L = 2 #liftcoefficient[planeTwo.angle]
-        else:
-            L = 2 #0
-
 
 
         horizontalFtwo = (planeTwo.thrust * math.cos(math.radians(planeTwo.angle))) + (L * math.sin(math.radians(planeTwo.angle)))
@@ -439,12 +350,12 @@ while intro:
                     enemybombs.pop(enemybombs.index(bomb))
 
             if 0 < bomb.x < width:
-                bomb.x -= (20 * math.cos(math.radians(planeTwo.angle))) #after every redraw the angle of the plane might change, which inherently changes the position of the bullet
+                bomb.x -= (20 * math.cos(math.radians(planeTwo.angle)))
             else:
                 enemybombs.pop(enemybombs.index(bomb))
 
             if 0 < bomb.y < height:
-                bomb.y -= (20 * math.sin(math.radians(planeTwo.angle))) #after every redraw the angle of the plane might change, which inherently changes the position of the bullet
+                bomb.y -= (20 * math.sin(math.radians(planeTwo.angle)))
             else:
                 enemybombs.pop(enemybombs.index(bomb))
             
@@ -469,25 +380,5 @@ while intro:
             run = False
 
 
-
         redrawGameWindow()
         clock.tick(60)
-
-
-
-
-
-
-
-
-#angle of attack == c
-#arbitrary lift coefficient as c increase, coefficient follows normal distribution , between 0 and 2
-
-#set up a dictionary?
-
-
-#Bumping
-#Top layer Knock down
-#bullets can travel width width +.5?
-#36 images, 10 degree variance
-# plane class with negative values to go backwards
