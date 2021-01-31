@@ -3,7 +3,7 @@ Master has additional notes in topdog.py
 Notes include ideas to further improve the code or two change the trajectories of the bullets
 
 
-Finished branch contains better
+Finished branch contains first finished idea
 
 # topdog
 a 2D plane dogfight
