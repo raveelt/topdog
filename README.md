@@ -1,5 +1,5 @@
 # topdog
-a 2D plane dogfight
+a 2D plane dogfight, two players, bullets change tragectory as the plane moves
 
 Required Modules:
 pygame
